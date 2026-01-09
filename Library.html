@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Library</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: calibri;
+        }
+        .library {
+            width: 650px;
+            height: 500px;
+            background-color: white;
+            box-shadow:inset 0 0 20px black;
+            border-radius: 20px;
+            margin: 50px auto;
+            padding: 10px 40px;
+
+        } 
+        .title {
+            text-align: center;
+            padding-top:30px ;
+            color: darkred;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-family: tahoma;
+        }
+        .library ul {
+            list-style-type: decimal;
+            margin-left: 100px;
+            margin-top: 30px;
+        }
+        .library ul li {
+            line-height: 50px;
+            font-size: 25px;
+            font-weight: bold;
+        }
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 0;
+            box-shadow: 0 0 10px black;
+            border-radius: 7px;
+            margin-top: 60px;
+        }
+        .inp {
+            width: 30px;
+            font-size: 20px;
+            padding:5px 10px;
+            font-weight: bold;
+            border-radius: 5px;
+            border: 2px solid black;
+            outline: none;
+            margin: 0 20px;
+        }
+        button {
+            color: white;
+            background-color: blue;
+            border-radius: 5px;
+            border: none;
+            font-size: 18px;
+            padding: 6px 30px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkblue;
+            font-weight: bold;
+        }
+        .exit{
+            display: none;
+        }
+        .exit h1{
+            text-align: center;
+            padding-top: 100px;
+        }
+        .exit button{
+            margin-top: 60px;
+            margin-left: 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="library">
+        <div class="wrap">
+            <h1 class="title">Classic Library</h1>
+        <ul>
+            <li>List of Books</li>
+            <li>Borrow a Book</li>
+            <li>Return a Book</li>
+            <li>Read a Book</li>
+            <li>Exit the Library</li>
+        </ul>
+        <div class="box">
+            <div class="text">Pls Enter the Number of the Operation you want to perform:</div>
+            <input type="text" class="inp" maxlength="1">
+            <button>Submit</button>
+        </div>
+        </div>
+        <div class="exit">
+            <h1>THANK YOU FOR VISITING THE LIBRARY</h1>
+            <Button onclick="home()">Click To Enter The Library</Button>
+        </div>
+    </div>
+
+    <script>
+        var btn = document.querySelector("button");
+        var inp = document.querySelector(".inp");
+        var wrap = document.querySelector(".wrap");
+        var exit = document.querySelector(".exit");
+        
+
+        class Library {
+            constructor(bookList){
+                this.original = bookList
+                this.bookList = this.original
+
+            }
+        listOfBooks(){
+            alert(`The Books currently Available in our Library are:
+${this.bookList}
+            `)
+        }
+        borrowABook(book){
+            // alert(this.bk);
+            if(this.bookList.indexOf(book) == -1){
+                alert("Sorry, this book is currently not available in our Library")
+
+            } else {
+                this.newArr = this.bookList.filter(function(item){
+                    return item != book
+                })
+                this.bookList = this.newArr
+                alert(`Congratulations you've been borrowed a book titled: ${book.toUpperCase()}`)
+            }     
+        }
+        bookToBeBorrowed(){
+            this.bk = prompt("Pls Enter the Name of the Book you want to Borrow: ");
+            return this.bk;
+        }
+        returnABook(book){
+            this.bookList.push(book);
+            alert("Thank you for returning the Book titled: "+book.toUpperCase())
+        }
+        bookToBeReturned(){
+            this.bk = prompt("Pls Enter the name of the book you want to return:");
+            return this.bk;
+        }
+        bookToBeRead(book){
+            document.write(this.bookList)
+            // alert("Thank You for Reading The Book Titled: "+book.toUpperCase());
+        }
+        ReadBook(){
+            this.bk = prompt("pls Enter the Name of The Book To Be Read: ");
+            return this.bk;
+        }
+        ExitTheLibrary(){
+            wrap.style.display = "none"
+            exit.style.display = "block"
+        }
+    }
+
+        var red =   `Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Voluptas eligendi consequuntur rem ipsa error natus. Dicta
+                    ducimus eveniet enim id, quaerat velit dolorem culpa delectus
+                    dolor minima voluptatum veritatis voluptatibus?`
+        
+        // var green =   `Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        //             Voluptas eligendi consequuntur rem ipsa error natus. Dicta
+        //             ducimus eveniet enim id, quaerat velit dolorem culpa delectus
+        //             dolor minima voluptatum veritatis voluptatibus?`           
+
+        // var blue =   `Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        //             Voluptas eligendi consequuntur rem ipsa error natus. Dicta
+        //             ducimus eveniet enim id, quaerat velit dolorem culpa delectus
+        //             dolor minima voluptatum veritatis voluptatibus?`
+
+        var classicLibrary = new Library([red, "green", "blue"]);
+
+        function focusFn(){
+            inp.value = "";
+            inp.focus();
+        }
+
+        focusFn();
+
+        btn.addEventListener("click", ()=> {
+            if(inp.value == "1"){
+                classicLibrary.listOfBooks();
+                focusFn();
+            } else if(inp.value == "2"){
+                classicLibrary.borrowABook(classicLibrary.bookToBeBorrowed());
+                focusFn();
+            } else if(inp.value == "3"){
+                classicLibrary.returnABook(classicLibrary.bookToBeReturned());
+                focusFn();
+            } else if(inp.value == "4"){
+                classicLibrary.bookToBeRead(classicLibrary.ReadBook())
+                focusFn();
+            } else if(inp.value == "5"){
+                classicLibrary.ExitTheLibrary()
+                focusFn();
+            }
+            else {
+                alert("Wrong Input!!! Pls Enter the Correct Value.")
+                focusFn();
+            }
+        })
+
+        function home(){
+            wrap.style.display = "block";
+        }
+    </script>
+</body>
+</html>
